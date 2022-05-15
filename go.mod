@@ -3,8 +3,9 @@ module demo-webhook-app
 go 1.18
 
 require (
-	github.com/google/go-github v17.0.0+incompatible
-	github.com/swinton/go-probot v1.0.0
+	github.com/google/go-github/v44 v44.0.0 // indirect
+	github.com/mpapenbr/go-probot v1.0.1-0.20220515215059-c45af9e26a92
+
 )
 
 require github.com/google/go-cmp v0.5.8 // indirect

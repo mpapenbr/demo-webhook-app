@@ -7,8 +7,8 @@ import (
 
 	"demo-webhook-app/releaseupdater"
 
-	"github.com/google/go-github/github"
-	"github.com/swinton/go-probot/probot"
+	"github.com/google/go-github/v44"
+	"github.com/mpapenbr/go-probot/probot"
 )
 
 func main() {

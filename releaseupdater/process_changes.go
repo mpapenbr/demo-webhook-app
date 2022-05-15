@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/google/go-github/github"
-	"github.com/swinton/go-probot/probot"
+	"github.com/google/go-github/v44"
+	"github.com/mpapenbr/go-probot/probot"
 )
 
 func ProcessNewRelease(config *Config, ctx *probot.Context, release *github.ReleaseEvent) {
