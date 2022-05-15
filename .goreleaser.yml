@@ -15,8 +15,8 @@ builds:
       - amd64    
    
 dockers:
-  - image_templates:
-    - "ghcr.io/mpapenbr/{{ .ProjectName }}"
+  - image_templates:    
+    - "ghcr.io/mpapenbr/{{ .ProjectName }}:{{ .Tag }}"
     extra_files:
     - config.yml
   
