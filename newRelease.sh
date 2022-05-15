@@ -12,6 +12,5 @@ echo $NO_PREFIX_TAG
 
 # updating the version in cmd/version.go
 go test ./... && \
-goreleaser --snapshot --skip-publish --rm-dist && \
 git tag -a $FULL_TAG -m "Release $FULL_TAG" && \
 git push origin main --tags
