@@ -1,0 +1,29 @@
+actions:
+  - from: demo_app1
+    component: "demoApp" # in case repo name doesn't fit
+    update:
+      - repo: demo_deploy1
+        file: versions.properties
+        regex: '(?P<key>\s*demo_app1_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'
+      - repo: demo_deploy3
+        file: docker-env.yml
+        regex: '(?P<key>\s*demo1_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'
+      - repo: demo_deploy3
+        file: k8s-versions.yml
+        # use this to keep the quotes around the version
+        regex: '(?P<key>\s*demo1_app_version:\s*")(?P<value>(v.*?))(?P<other>$|"|\s+\.*?)'
+  - from: demo_app2    
+    update:
+      - repo: demo_deploy2
+        file: sub/vars.yml
+        regex: '(?P<key>\s*demo2_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'        
+      - repo: demo_deploy3
+        file: docker-env.yml
+        regex: '(?P<key>\s*demo2_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'      
+      - repo: demo_deploy3
+        file: k8s-versions.yml
+        # use this to keep the quotes around the version
+        regex: '(?P<key>\s*demo2_app_version:\s*")(?P<value>(v.*?))(?P<other>$|"|\s+\.*?)'
+
+
+  

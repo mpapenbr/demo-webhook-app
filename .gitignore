@@ -19,3 +19,6 @@ bin
 
 # Project-specific environment variables, powered by direnv
 .envrc
+.env
+*.pem
+.gitconfig.local
