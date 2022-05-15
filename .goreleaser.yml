@@ -16,7 +16,7 @@ builds:
    
 dockers:
   - image_templates:    
-    - "ghcr.io/mpapenbr/{{ .ProjectName }}/{{ .ProjectName }}:{{ .Tag }}"
+    - "ghcr.io/mpapenbr/{{ .ProjectName }}:{{ .Tag }}"
     build_flag_templates:
     - "--pull"
     - "--label=org.opencontainers.image.created={{.Date}}"
@@ -29,9 +29,9 @@ dockers:
     - config.yml
 
 docker_manifests:
-  - name_template: mpapenbr/{{ .ProjectName }}/{{ .ProjectName }}:{{ .Tag }}
+  - name_template: mpapenbr/{{ .ProjectName }}:{{ .Tag }}
     image_templates:    
-    - "ghcr.io/mpapenbr/{{ .ProjectName }}/{{ .ProjectName }}:{{ .Tag }}"
+    - "ghcr.io/mpapenbr/{{ .ProjectName }}:{{ .Tag }}"
 
 snapshot:
   name_template: "{{ incpatch .Version }}-next"
