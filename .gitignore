@@ -22,4 +22,4 @@ dist
 .envrc
 .env
 *.pem
-.gitconfig.local
+.gitconfig.local*
