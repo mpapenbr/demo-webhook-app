@@ -17,7 +17,33 @@ func main() {
 		log.Fatal("Could not read config")
 	}
 
+	probot.HandleEvent("create", func(ctx *probot.Context) error {
+		// Because we're listening for "release" we know the payload is a *github.ReleaseEvent
+		event := ctx.Payload.(*github.CreateEvent)
+		if *event.RefType == "tag" {
+			log.Printf("got create tag from %s\n", *event.GetRepo().Name)
+			releaseupdater.ProcessNewTag(config, ctx, event)
+
+		} else {
+			log.Printf("not interested in ref_type %s\n", *event.RefType)
+		}
+
+		return nil
+	})
+
+	probot.HandleEvent("ping", func(ctx *probot.Context) error {
+		log.Printf("Ping event recieved\n")
+		return nil
+	})
+
 	probot.HandleEvent("release", func(ctx *probot.Context) error {
+		// Because we're listening for "release" we know the payload is a *github.ReleaseEvent
+		event := ctx.Payload.(*github.ReleaseEvent)
+		log.Printf("Currently ignoring release events (%s)\n", *event.Action)
+		return nil
+	})
+
+	probot.HandleEvent("release_ooo", func(ctx *probot.Context) error {
 		// Because we're listening for "release" we know the payload is a *github.ReleaseEvent
 		event := ctx.Payload.(*github.ReleaseEvent)
 		if *event.Action == "published" {

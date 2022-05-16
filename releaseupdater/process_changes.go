@@ -54,3 +54,48 @@ func ProcessNewRelease(config *Config, ctx *probot.Context, release *github.Rele
 		}
 	}
 }
+
+func ProcessNewTag(config *Config, ctx *probot.Context, create *github.CreateEvent) {
+	fmt.Printf("Incoming create tag event from %s\n", *create.Repo.FullName)
+	for _, action := range config.Actions {
+		if action.From == *create.Repo.Name {
+			commitComponent := create.Repo.Name
+			if action.Component != "" {
+				commitComponent = &action.Component
+			}
+			for _, update := range action.Update {
+				repoOwner := *create.Repo.Owner.Login
+				log.Printf("Fetching %s from %s/%s\n", update.File, repoOwner, update.Repo)
+				content, _, resp, err := ctx.GitHub.Repositories.GetContents(context.Background(), repoOwner, update.Repo, update.File, &github.RepositoryContentGetOptions{})
+				if err != nil {
+					log.Printf("error reading source: %+v\n", err)
+					continue
+				}
+				fileContent, _ := b64.StdEncoding.DecodeString(*content.Content)
+				log.Printf("Content: <%s>\n", fileContent)
+				log.Printf("RegEx: <%s>\n", update.Regex)
+				log.Printf("Resp: %+v\n", *resp)
+				newVersion := ReplaceVersion(fileContent, update.Regex, *create.Ref)
+				if string(newVersion) != string(fileContent) {
+					fmt.Printf("Updating file %s\n", update.File)
+					fmt.Printf("NewContent: <%s>\n", string(newVersion))
+
+					message := fmt.Sprintf("pkg: Bump %s to %s", *commitComponent, *create.Ref)
+					_, resp, err = ctx.GitHub.Repositories.UpdateFile(context.Background(), repoOwner, update.Repo, update.File, &github.RepositoryContentFileOptions{
+						Content: []byte(newVersion),
+						Message: github.String(message),
+						SHA:     github.String(*content.SHA),
+					})
+					if err != nil {
+						log.Printf("error updating %s: %+v\n", update.File, err)
+						continue
+					}
+
+				} else {
+					log.Println("No changes detected")
+				}
+
+			}
+		}
+	}
+}
