@@ -3,27 +3,30 @@ actions:
     component: "demoApp" # in case repo name doesn't fit
     update:
       - repo: demo_deploy1
-        file: versions.properties
+        files: [versions.properties]
         regex: '(?P<key>\s*demo_app1_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'
       - repo: demo_deploy3
-        file: docker-env.yml
+        files:
+          - docker-env.yml
+          - k8s-versions-no-quotes.yml
         regex: '(?P<key>\s*demo1_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'
-      - repo: demo_deploy3
-        file: k8s-versions.yml
-        # use this to keep the quotes around the version
-        regex: '(?P<key>\s*demo1_app_version:\s*")(?P<value>(v.*?))(?P<other>$|"|\s+\.*?)'
-  - from: demo_app2    
+      - repo: demo_deploy4
+        repoType: Bitbucket
+        files:
+          - versions.yml
+        regex: '(?P<key>\s*demo1_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'
+
+  - from: demo_app2
     update:
       - repo: demo_deploy2
-        file: sub/vars.yml
-        regex: '(?P<key>\s*demo2_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'        
+        files: [sub/vars.yml]
+        regex: '(?P<key>\s*demo2_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'
       - repo: demo_deploy3
-        file: docker-env.yml
-        regex: '(?P<key>\s*demo2_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'      
+        files:
+          - docker-env.yml
+          - k8s-versions-no-quotes.yml
+        regex: '(?P<key>\s*demo2_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'
       - repo: demo_deploy3
         file: k8s-versions.yml
         # use this to keep the quotes around the version
         regex: '(?P<key>\s*demo2_app_version:\s*")(?P<value>(v.*?))(?P<other>$|"|\s+\.*?)'
-
-
-  

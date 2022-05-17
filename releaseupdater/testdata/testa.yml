@@ -2,6 +2,5 @@ actions:
   - from: demo_app1
     update:
       - repo: demo_deploy1
-        file: versions.properties
-        regex: |
-          (?P<key>\s*version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)
+        files: [versions.properties]
+        regex: '(?P<key>\s*version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'

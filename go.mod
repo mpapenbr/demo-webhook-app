@@ -8,6 +8,15 @@ require (
 )
 
 require (
+	github.com/golang/protobuf v1.3.2 // indirect
+	github.com/ktrysmt/go-bitbucket v0.9.45 // indirect
+	github.com/mitchellh/mapstructure v0.0.0-20180220230111-00c29f56e238 // indirect
+	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
+	golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be // indirect
+	google.golang.org/appengine v1.6.7 // indirect
+)
+
+require (
 	github.com/bradleyfalzon/ghinstallation v1.1.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/google/go-github/v29 v29.0.3 // indirect

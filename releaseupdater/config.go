@@ -4,13 +4,22 @@ import (
 	"io/ioutil"
 	"log"
 
+	"github.com/ktrysmt/go-bitbucket"
+	"github.com/mpapenbr/go-probot/probot"
 	"gopkg.in/yaml.v3"
 )
 
+type Context struct {
+	Config          *Config
+	ProbotCtx       *probot.Context
+	BitbucketClient *bitbucket.Client
+}
+
 type Update struct {
-	Repo  string // name of the repo
-	File  string // reference to file in repo
-	Regex string // regex for searching the to-be-replaced item
+	RepoType string   `yaml:"repoType"`
+	Repo     string   // name of the repo
+	Files    []string // reference to files in repo
+	Regex    string   // regex for searching the to-be-replaced item
 }
 
 type Action struct {
