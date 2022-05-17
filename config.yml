@@ -14,7 +14,7 @@ actions:
         repoType: Bitbucket
         files:
           - versions.yml
-        regex: '(?P<key>\s*demo1_app_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'
+        regex: '(?P<key>\s*demo_app1_version:\s*)(?P<value>v.*?)(?P<other>$|\s+\.*)'
 
   - from: demo_app2
     update:
